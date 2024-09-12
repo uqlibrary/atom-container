@@ -1,7 +1,9 @@
 <?php
 
 define('_ATOM_DIR', '/atom/src');
-define('_ETC_DIR', '/usr/local/etc');
+define('_ETC_DIR', '/etc/php/7.4');
+define('_PHP_DIR', _ETC_DIR."/cli");
+define('_FPM_DIR', _ETC_DIR."/fpm");
 
 function getenv_default($name, $default)
 {
@@ -50,7 +52,7 @@ $CONFIG = [
     'atom.debug_ip' => getenv_default('ATOM_DEBUG_IP', ''),
     'php.max_execution_time' => getenv_default('ATOM_PHP_MAX_EXECUTION_TIME', '120'),
     'php.max_input_time' => getenv_default('ATOM_PHP_MAX_INPUT_TIME', '120'),
-    'php.memory_limit' => getenv_default('ATOM_PHP_MEMORY_LIMIT', '512M'),
+    'php.memory_limit' => getenv_default('ATOM_PHP_MEMORY_LIMIT', '1024'),
     'php.post_max_size' => getenv_default('ATOM_PHP_POST_MAX_SIZE', '72M'),
     'php.upload_max_filesize' => getenv_default('ATOM_PHP_UPLOAD_MAX_FILESIZE', '64M'),
     'php.max_file_uploads' => getenv_default('ATOM_PHP_MAX_FILE_UPLOADS', '20'),
@@ -282,8 +284,10 @@ pcov.enabled = 1
 EOT;
 }
 
-@unlink(_ETC_DIR.'/php/php.ini');
-file_put_contents(_ETC_DIR.'/php/php.ini', $php_ini);
+@unlink(_PHP_DIR.'/php.ini');
+file_put_contents(_PHP_DIR.'/php.ini', $php_ini);
+@unlink(_FPM_DIR.'/php.ini');
+file_put_contents(_FPM_DIR.'/php.ini', $php_ini);
 
 //
 // fpm ini
@@ -335,8 +339,8 @@ env[ATOM_DEBUG_IP] = {$debugIps}
 EOT;
 }
 
-@unlink(_ETC_DIR.'/php-fpm.d/atom.conf');
-file_put_contents(_ETC_DIR.'/php-fpm.d/atom.conf', $fpm_ini);
+@unlink(_FPM_DIR.'/pool.d/atom.conf');
+file_put_contents(_FPM_DIR.'/pool.d/atom.conf', $fpm_ini);
 
 //
 // sf symlink

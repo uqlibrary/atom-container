@@ -35,10 +35,10 @@ case $1 in
         # Give some extra time to MySQL and Gearman to start
         # and add some interval in between restarts.
         sleep 10
-        exec php ${__dir}/../symfony jobs:worker
+        exec php ${__dir}/symfony jobs:worker
         ;;
     'fpm')
-        exec php-fpm --allow-to-run-as-root
+        exec /usr/bin/php-fpm --allow-to-run-as-root
         ;;
 esac
 

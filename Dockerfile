@@ -30,11 +30,12 @@ RUN \
   mariadb-client
 
 ADD --checksum=sha256:98ab91eec0e966c8f7b374ae60e3e18f80e383d608459db9e89dca896f675f4d https://storage.accesstomemory.org/releases/atom-2.8.2.tar.gz /atom/
-RUN tar -xvf /atom/atom-2.8.2.tar.gz -C /atom/ --strip 1 && mv /atom/atom-2.8.2 /atom/src
+RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.8.2.tar.gz -C /atom/src/ --strip 1
+#RUN mv /atom/atom-2.8.2 /atom/src
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
-COPY ./dbdumps.sh /atom/src/
+COPY ./dbdump.sh /atom/src/
 RUN \
   ln -s /usr/sbin/php-fpm7.4 /usr/bin/php-fpm && \
   mkdir -p /usr/local/etc/php && \

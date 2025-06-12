@@ -27,9 +27,12 @@ RUN \
   poppler-utils \ 
   ffmpeg \
   npm \
+  make \
   fop \
   rsync \
   git \
+  curl \
+  wget \
   mysql-client
 
 ADD --checksum=sha256:13c8c26f4398cb5c1ec45e094bc13f59d43e64c45520fc5361d19b8efbba24ed https://storage.accesstomemory.org/releases/atom-2.9.1.tar.gz /atom/
@@ -53,7 +56,7 @@ RUN \
 
 # Add plugins
 RUN \
-  git clone --depth 1 --branch v2.9.1 https://github.com/artefactual/atom.git /build/
+  git clone --depth 1 --branch stable/2.9.x https://github.com/artefactual/atom.git /build/
 
 COPY ./plugindev/ /plugindev
 
@@ -63,14 +66,21 @@ RUN \
 # Run 
 RUN set -xe \
     && rsync -a /plugindev/plugins/ /build/plugins \
-    && cd /build \
-    && npm install \
-    && npm run build \
-    && cd /atom/src/ \
-    && rm -rf /build
+    && npm install -g "less@<4.0.0" n \
+    && n stable
+
+RUN set - xe \
+  && export PATH="/usr/local/bin:$PATH" \
+  && cd /build \
+  && npm install \
+  && npm run build \
+  && cd /atom/src/
 
 RUN \
-  rsync -a /build/plugins/ /atom/src/plugins/ 
+  rsync -a /build/plugins/ /atom/src/plugins/ \
+  && rm -rf /build
+  
+
 
 WORKDIR /atom/src
 

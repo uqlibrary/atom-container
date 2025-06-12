@@ -44,12 +44,15 @@ $CONFIG = [
     'atom.development_mode' => filter_var(getenv_default('ATOM_DEVELOPMENT_MODE', false), FILTER_VALIDATE_BOOLEAN),
     'atom.coverage' => filter_var(getenv_default('ATOM_COVERAGE', false), FILTER_VALIDATE_BOOLEAN),
     'atom.elasticsearch_host' => getenv_or_fail('ATOM_ELASTICSEARCH_HOST'),
+    'atom.elasticsearch_port' => getenv_or_fail('ATOM_ELASTICSEARCH_PORT'),
+    'atom.elasticsearch_index' => getenv_or_fail('ATOM_ELASTICSEARCH_INDEX'),
     'atom.memcached_host' => getenv_or_fail('ATOM_MEMCACHED_HOST'),
     'atom.gearmand_host' => getenv_or_fail('ATOM_GEARMAND_HOST'),
     'atom.mysql_dsn' => getenv_or_fail('ATOM_MYSQL_DSN'),
     'atom.mysql_username' => getenv_or_fail('ATOM_MYSQL_USERNAME'),
     'atom.mysql_password' => getenv_or_fail('ATOM_MYSQL_PASSWORD'),
     'atom.debug_ip' => getenv_default('ATOM_DEBUG_IP', ''),
+    'atom.uq_reusable_components' => getenv_default('UQ_REUSABLE_COMPONENTS', ''),
     'php.max_execution_time' => getenv_default('ATOM_PHP_MAX_EXECUTION_TIME', '120'),
     'php.max_input_time' => getenv_default('ATOM_PHP_MAX_INPUT_TIME', '120'),
     'php.memory_limit' => getenv_default('ATOM_PHP_MEMORY_LIMIT', '2048'),
@@ -95,8 +98,9 @@ if (!file_exists(_ATOM_DIR.'/apps/qubit/config/app.yml')) {
     $parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
     $app_yml = <<<EOT
 all:
+  uq_reusable_components: ${CONFIG['atom.uq_reusable_components']}
   upload_limit: -1
-  download_timeout: 10
+  download_timeout: 300
   cache_engine: sfMemcacheCache
   cache_engine_param:
     host: ${parts['host']}
@@ -162,12 +166,15 @@ EOT;
 // /config/search.yml
 //
 
-$parts = get_host_and_port($CONFIG['atom.elasticsearch_host'], 9200);
+$parts = get_host_and_port($CONFIG['atom.elasticsearch_host'], $CONFIG['atom.elasticsearch_port']);
+$es_index = $CONFIG['atom.elasticsearch_index'];
 $search_yml = <<<EOT
 all:
   server:
     host: ${parts['host']}
     post: ${parts['port']}
+  index:
+    name: ${es_index}
 
 EOT;
 

@@ -1,7 +1,7 @@
 <?php
 
 define('_ATOM_DIR', '/atom/src');
-define('_ETC_DIR', '/etc/php/7.4');
+define('_ETC_DIR', '/etc/php/8.3');
 define('_PHP_DIR', _ETC_DIR."/cli");
 define('_FPM_DIR', _ETC_DIR."/fpm");
 

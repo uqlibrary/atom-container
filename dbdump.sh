@@ -16,7 +16,7 @@ echo "password=${ATOM_MYSQL_PASSWORD}" >> $CLIENT_CONF
 DUMP_TIME="$(date +%Y-%m-%d_%H:%m:%S)"
 if [ -d /dbdumps ]; then
     echo "Dumping database"
-    mariadb-dump --single-transaction --defaults-extra-file=$CLIENT_CONF -h $DB_HOST $DB_DATABASE > /dbdumps/${DB_HOST}-${DB_DATABASE}_${DUMP_TIME}.sql
+    mysqldump --single-transaction --defaults-extra-file=$CLIENT_CONF -h $DB_HOST $DB_DATABASE > /dbdumps/${DB_HOST}-${DB_DATABASE}_${DUMP_TIME}.sql
     exit 0
 else
     echo "Database dump directory not configured. Configure bind mount volume at /dbdumps."

@@ -1,10 +1,7 @@
 #!/bin/bash
 # rferris 2025
-
-ATOM_VER=2.9.1
-REL_VER=1
-REL_STR="${ATOM_VER}-${REL_VER}"
-
+MYDIR="$(dirname "$0")"
+REL_STR=$(cat $MYDIR/VERSION)
 # Test build
 podman build -t $REL_STR .
 

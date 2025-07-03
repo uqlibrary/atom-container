@@ -35,17 +35,18 @@ RUN \
   wget \
   mysql-client
 
-ADD --checksum=sha256:13c8c26f4398cb5c1ec45e094bc13f59d43e64c45520fc5361d19b8efbba24ed https://storage.accesstomemory.org/releases/atom-2.9.1.tar.gz /atom/
-RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.9.1.tar.gz -C /atom/src/ --strip 1
-#RUN mv /atom/atom-2.9.1 /atom/src
+ADD --checksum=sha256:d86e4f5efb3c5a95d431de978ffacbba866d5341412ff1c1bb939d4a2a440231 https://storage.accesstomemory.org/releases/atom-2.9.2.tar.gz /atom/
+RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.9.2.tar.gz -C /atom/src/ --strip 1
+#RUN mv /atom/atom-2.9.2 /atom/src
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
 COPY ./dbdump.sh /atom/src/
-COPY ./atom-fixes/2.9.1/ /atom/src/
+COPY ./set-ad-login.sh /atom/src/
+COPY ./atom-fixes/2.9.2/ /atom/src/
 
 # Overwrite specific Atom files
-#RUN /atom-fixes/appy.sh 2.9.1
+#RUN /atom-fixes/appy.sh 2.9.2
 
 # Setup php
 RUN \

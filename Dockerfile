@@ -45,9 +45,6 @@ COPY ./dbdump.sh /atom/src/
 COPY ./set-ad-login.sh /atom/src/
 COPY ./atom-fixes/2.9.2/ /atom/src/
 
-# Overwrite specific Atom files
-#RUN /atom-fixes/appy.sh 2.9.2
-
 # Setup php
 RUN \
   ln -s /usr/sbin/php-fpm8.3 /usr/bin/php-fpm && \

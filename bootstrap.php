@@ -140,6 +140,11 @@ prod:
           prefix: atom
           storeCacheInfo: true
           persistent: true
+  user:
+    class: ADUser
+    param:
+      timeout: 80000 # Session timeout in seconds
+
 
 dev:
   storage:
@@ -156,6 +161,11 @@ dev:
           prefix: atom
           storeCacheInfo: true
           persistent: true
+  user:
+    class: ADUser
+    param:
+      timeout: 80000 # Session timeout in seconds
+
 
 EOT;
 

@@ -21,7 +21,7 @@ echo "password=${ATOM_MYSQL_PASSWORD}" >> $CLIENT_CONF
 
 if [ -d /dbdumps ]; then
     echo "Restoring database..."
-    mysql --defaults-extra-file=$CLIENT_CONF --no-tablespaces --single-transaction  -h "$DB_HOST" "$DB_DATABASE" < "$1"
+    mysql --defaults-extra-file=$CLIENT_CONF -h "$DB_HOST" "$DB_DATABASE" < "$1"
     exit 0
 else
     echo "Database dump directory not configured. Configure bind mount volume at /dbdumps."

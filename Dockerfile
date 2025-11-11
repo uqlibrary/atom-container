@@ -42,6 +42,7 @@ RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.9.2.tar.gz -C /atom/src/ --strip
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
 COPY ./dbdump.sh /atom/src/
+COPY ./db-restore.sh /atom/src/
 COPY ./set-ad-login.sh /atom/src/
 COPY ./atom-fixes/2.9.2/ /atom/src/
 

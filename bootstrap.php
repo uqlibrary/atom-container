@@ -47,6 +47,7 @@ $CONFIG = [
     'atom.elasticsearch_port' => getenv_or_fail('ATOM_ELASTICSEARCH_PORT'),
     'atom.elasticsearch_index' => getenv_or_fail('ATOM_ELASTICSEARCH_INDEX'),
     'atom.memcached_host' => getenv_or_fail('ATOM_MEMCACHED_HOST'),
+    'atom.memcached_port' => getenv_default('ATOM_MEMCACHED_PORT', '11211'),
     'atom.gearmand_host' => getenv_or_fail('ATOM_GEARMAND_HOST'),
     'atom.mysql_dsn' => getenv_or_fail('ATOM_MYSQL_DSN'),
     'atom.mysql_username' => getenv_or_fail('ATOM_MYSQL_USERNAME'),
@@ -95,7 +96,7 @@ file_put_contents(_ATOM_DIR.'/apps/qubit/config/gearman.yml', $gearman_yml);
 //
 
 if (!file_exists(_ATOM_DIR.'/apps/qubit/config/app.yml')) {
-    $parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
+    $parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG['atom.memcached_port']);
     $app_yml = <<<EOT
 all:
   uq_reusable_components: ${CONFIG['atom.uq_reusable_components']}
@@ -123,7 +124,7 @@ EOT;
 //
 
 if (!file_exists(_ATOM_DIR.'/apps/qubit/config/factories.yml')) {
-    $parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
+    $parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG['atom.memcached_port']);
     $factories_yml = <<<EOT
 prod:
   storage:
@@ -140,10 +141,6 @@ prod:
           prefix: atom
           storeCacheInfo: true
           persistent: true
-  user:
-    class: ADUser
-    param:
-      timeout: 80000 # Session timeout in seconds
 
 
 dev:
@@ -161,10 +158,6 @@ dev:
           prefix: atom
           storeCacheInfo: true
           persistent: true
-  user:
-    class: ADUser
-    param:
-      timeout: 80000 # Session timeout in seconds
 
 
 EOT;

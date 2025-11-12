@@ -54,6 +54,7 @@ $CONFIG = [
     'atom.mysql_password' => getenv_or_fail('ATOM_MYSQL_PASSWORD'),
     'atom.debug_ip' => getenv_default('ATOM_DEBUG_IP', ''),
     'atom.uq_reusable_components' => getenv_default('UQ_REUSABLE_COMPONENTS', ''),
+    'fpm.listen_port' => getenv_default('ATOM_FPM_LISTEN_PORT', '9000'),
     'php.max_execution_time' => getenv_default('ATOM_PHP_MAX_EXECUTION_TIME', '120'),
     'php.max_input_time' => getenv_default('ATOM_PHP_MAX_INPUT_TIME', '120'),
     'php.memory_limit' => getenv_default('ATOM_PHP_MEMORY_LIMIT', '2048'),
@@ -303,7 +304,7 @@ file_put_contents(_FPM_DIR.'/php.ini', $php_ini);
 // fpm ini
 //
 
-$fpm_ini = <<<'EOT'
+$fpm_ini = <<<EOT
 [global]
 error_log = /proc/self/fd/2
 daemonize = no
@@ -315,6 +316,7 @@ catch_workers_output = yes
 user = root
 group = root
 listen = [::]:9000
+listen = [::]:${CONFIG['php.upload_max_filesize']}
 pm = dynamic
 pm.max_children = 5
 pm.start_servers = 2

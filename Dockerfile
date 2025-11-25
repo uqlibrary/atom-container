@@ -45,9 +45,6 @@ COPY ./dbdump.sh /atom/src/
 COPY ./db-restore.sh /atom/src/
 COPY ./set-ad-login.sh /atom/src/
 COPY ./atom-fixes/2.9.2/ /atom/src/
-COPY ./images/logo.png /atom/src/images/
-COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
-COPY ./images/logo.png /atom/src/plugins/uqDominionProdB5Plugin/images/
 
 
 # Setup php
@@ -84,6 +81,9 @@ RUN \
   && rm -rf /build
   
 
+COPY ./images/logo.png /atom/src/images/
+COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
+COPY ./images/logo.png /atom/src/plugins/uqDominionProdB5Plugin/images/
 
 WORKDIR /atom/src
 

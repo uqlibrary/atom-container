@@ -13,7 +13,7 @@ echo '[mysqldump]' > $CLIENT_CONF
 echo "user=${ATOM_MYSQL_USERNAME}" >> $CLIENT_CONF
 echo "password=${ATOM_MYSQL_PASSWORD}" >> $CLIENT_CONF
 
-DUMP_TIME="$(date +%Y-%m-%d_%H:%m:%S)"
+DUMP_TIME="$(date +%Y-%m-%d_%H:%M:%S)"
 if [ -d /dbdumps ]; then
     echo "Dumping database"
     mysqldump --defaults-extra-file=$CLIENT_CONF --no-tablespaces --single-transaction  -h $DB_HOST $DB_DATABASE > /dbdumps/${DB_HOST}-${DB_DATABASE}_${DUMP_TIME}.sql

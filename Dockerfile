@@ -24,11 +24,10 @@ RUN \
   fop \
   imagemagick \
   ghostscript \
-  poppler-utils \ 
+  poppler-utils \
   ffmpeg \
   npm \
   make \
-  fop \
   rsync \
   git \
   curl \
@@ -69,7 +68,7 @@ RUN set -xe \
     && npm install -g "less@<4.0.0" n \
     && n stable
 
-RUN set - xe \
+RUN set -xe \
   && export PATH="/usr/local/bin:$PATH" \
   && cd /build \
   && npm install \

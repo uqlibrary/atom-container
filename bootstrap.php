@@ -110,6 +110,7 @@ all:
     default: ${CONFIG["atom.gearmand_host"]}
 EOT;
 
+
 @unlink(_ATOM_DIR . "/apps/qubit/config/gearman.yml");
 file_put_contents(_ATOM_DIR . "/apps/qubit/config/gearman.yml", $gearman_yml);
 

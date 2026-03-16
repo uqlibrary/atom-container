@@ -143,7 +143,7 @@ if (!file_exists(_ATOM_DIR . "/apps/qubit/config/app.yml")) {
             font-src 'self' https://fonts.gstatic.com;
             form-action 'self';
             img-src 'self' http://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
-            script-src 'self' https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+            script-src 'self' https://assets.library.uq.edu.au/reusable-webcomponents-development/atom-staging/applications/atom/load.js https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
             style-src 'self' 'nonce' https://assets.library.uq.edu.au https://fonts.googleapis.com;
             worker-src 'self' blob:;
             connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;

@@ -110,7 +110,6 @@ all:
     default: ${CONFIG["atom.gearmand_host"]}
 EOT;
 
-
 @unlink(_ATOM_DIR . "/apps/qubit/config/gearman.yml");
 file_put_contents(_ATOM_DIR . "/apps/qubit/config/gearman.yml", $gearman_yml);
 
@@ -143,7 +142,7 @@ if (!file_exists(_ATOM_DIR . "/apps/qubit/config/app.yml")) {
             default-src 'self';
             font-src 'self' https://fonts.gstatic.com;
             form-action 'self';
-            img-src 'self' http://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
+            img-src 'self' https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
             script-src 'self' 'unsafe-eval' https://assets.library.uq.edu.au/ https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
             style-src 'self' 'nonce' https://assets.library.uq.edu.au https://fonts.googleapis.com;
             worker-src 'self' blob:;

@@ -139,15 +139,13 @@ if (!file_exists(_ATOM_DIR . "/apps/qubit/config/app.yml")) {
       csp:
           response_header: Content-Security-Policy-Report-Only
           directives: >
-            default-src 'self';
-            font-src 'self' https://fonts.gstatic.com;
-            form-action 'self';
-            img-src 'self' https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
-            script-src 'self' 'unsafe-eval' https://assets.library.uq.edu.au/ https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
-            style-src 'self' 'nonce' https://assets.library.uq.edu.au https://fonts.googleapis.com;
+            default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://fonts.gstatic.com https://fonts.googleapis.com;
+            script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://*.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+            img-src 'self' data: https://static.uq.net.au https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
+            connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:;
             worker-src 'self' blob:;
-            connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
             frame-ancestors 'self';
+            form-action 'self';
 
     EOT;
 

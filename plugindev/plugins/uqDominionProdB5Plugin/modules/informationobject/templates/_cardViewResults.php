@@ -23,27 +23,7 @@
   <div class="col-sm-6 col-lg-4 masonry-item">
     <div class="card">
       <?php if (!empty($doc["hasDigitalObject"])) { ?>
-        <?php // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          // Get thumbnail or generic icon path
-          if (
+        <?php if (
             isset($doc["digitalObject"]["thumbnailPath"]) &&
             QubitAcl::check(
                 QubitInformationObject::getById($hit->getId()),

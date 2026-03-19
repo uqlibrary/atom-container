@@ -85,7 +85,7 @@ COPY ./images/logo.png /atom/src/images/
 COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
 COPY ./images/logo.png /atom/src/plugins/uqDominionProdB5Plugin/images/
 
-COPY ./reports/ /reports
+COPY ./reports/ /atom/src/uq/reports
 
 WORKDIR /atom/src
 

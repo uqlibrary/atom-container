@@ -13,6 +13,8 @@
         <?php // Get thumbnail or generic icon path
           // Get thumbnail or generic icon path
           // Get thumbnail or generic icon path
+        // Get thumbnail or generic icon path
+        // Get thumbnail or generic icon path
         if (
             isset($doc["digitalObject"]["thumbnailPath"]) &&
             QubitAcl::check(
@@ -45,7 +47,7 @@
           <?php echo render_title($title); ?>
         </a>
       <?php } ?>
-      <?php function checkCulture(pageText)
+      <?php function checkCulture($pageText)
       {
           $cultureStatements = [
               "Content advice: Aboriginal and Torres Strait Islander",
@@ -53,7 +55,6 @@
               "Content advice: Aboriginal, Torres Strait Islander",
               "Cultural advice: Aboriginal, Torres Strait Islander",
           ];
-          echo $pageText;
           return array_filter($cultureStatements, function ($statement) use (
               $pageText,
           ) {

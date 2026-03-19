@@ -62,7 +62,7 @@ COPY ./plugindev/ /plugindev
 RUN \
   ln -s /atom/src/dist /build/dist
 
-# Run 
+# Run
 RUN set -xe \
     && rsync -a /plugindev/plugins/ /build/plugins \
     && npm install -g "less@<4.0.0" n \
@@ -78,12 +78,14 @@ RUN set -xe \
 RUN \
   rsync -a /build/plugins/ /atom/src/plugins/ \
   && rm -rf /build
-  
+
 
 COPY ./images/favicon.ico /atom/src/favicon.ico
 COPY ./images/logo.png /atom/src/images/
 COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
 COPY ./images/logo.png /atom/src/plugins/uqDominionProdB5Plugin/images/
+
+COPY ./reports/ /reports
 
 WORKDIR /atom/src
 

@@ -1,5 +1,18 @@
 <div class="row g-3 mb-3 masonry">
-
+<?php function checkCulture($pageText)
+{
+    $cultureStatements = [
+        "Content advice: Aboriginal and Torres Strait Islander",
+        "Cultural advice: Aboriginal and Torres Strait Islander",
+        "Content advice: Aboriginal, Torres Strait Islander",
+        "Cultural advice: Aboriginal, Torres Strait Islander",
+    ];
+    return array_filter($cultureStatements, function ($statement) use (
+        $pageText,
+    ) {
+        return str_contains($pageText, $statement);
+    });
+} ?>
 <?php foreach ($pager->getResults() as $hit) { ?>
   <?php $doc = $hit->getData(); ?>
   <?php $title = get_search_i18n($doc, "title", [
@@ -13,9 +26,24 @@
         <?php // Get thumbnail or generic icon path
           // Get thumbnail or generic icon path
           // Get thumbnail or generic icon path
-        // Get thumbnail or generic icon path
-        // Get thumbnail or generic icon path
-        if (
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          // Get thumbnail or generic icon path
+          if (
             isset($doc["digitalObject"]["thumbnailPath"]) &&
             QubitAcl::check(
                 QubitInformationObject::getById($hit->getId()),
@@ -47,20 +75,7 @@
           <?php echo render_title($title); ?>
         </a>
       <?php } ?>
-      <?php function checkCulture($pageText)
-      {
-          $cultureStatements = [
-              "Content advice: Aboriginal and Torres Strait Islander",
-              "Cultural advice: Aboriginal and Torres Strait Islander",
-              "Content advice: Aboriginal, Torres Strait Islander",
-              "Cultural advice: Aboriginal, Torres Strait Islander",
-          ];
-          return array_filter($cultureStatements, function ($statement) use (
-              $pageText,
-          ) {
-              return str_contains($pageText, $statement);
-          });
-      } ?>
+
       <?php if (
           null !==
               ($scopeAndContent = get_search_i18n($doc, "scopeAndContent", [

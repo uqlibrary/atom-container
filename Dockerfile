@@ -34,16 +34,16 @@ RUN \
   wget \
   mysql-client
 
-ADD --checksum=sha256:d86e4f5efb3c5a95d431de978ffacbba866d5341412ff1c1bb939d4a2a440231 https://storage.accesstomemory.org/releases/atom-2.9.2.tar.gz /atom/
-RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.9.2.tar.gz -C /atom/src/ --strip 1
-#RUN mv /atom/atom-2.9.2 /atom/src
+ADD --checksum=sha256:e135e69b2a743e00061dfee7bcc206af4fc6248cc180b2c894ae5291f4aee039 https://storage.accesstomemory.org/releases/atom-2.10.1.tar.gz /atom/
+RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.1.tar.gz -C /atom/src/ --strip 1
+#RUN mv /atom/atom-2.10.1 /atom/src
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
 COPY ./dbdump.sh /atom/src/
 COPY ./db-restore.sh /atom/src/
 COPY ./set-ad-login.sh /atom/src/
-COPY ./atom-fixes/2.9.2/ /atom/src/
+COPY ./atom-fixes/2.10.1/ /atom/src/
 
 
 # Setup php
@@ -55,7 +55,7 @@ RUN \
 
 # Add plugins
 RUN \
-  git clone --depth 1 --branch stable/2.9.x https://github.com/artefactual/atom.git /build/
+  git clone --depth 1 --branch stable/2.10.x https://github.com/artefactual/atom.git /build/
 
 COPY ./plugindev/ /plugindev
 

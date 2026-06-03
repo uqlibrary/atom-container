@@ -12,15 +12,15 @@ echo '
   <body>
 ';
 
-echo '<h1>Fryer</h1>';
+echo '<h1>Atom Reports</h1>';
 echo '<ul>';
 echo '<li>';
-echo '<a href="fryer.php?query=accessions">Accessions this year.</a>';
+echo '<a href="reports.php?query=accessions">Accessions this year.</a>';
 echo '</li>';
 echo '<li>';
-echo '<a href="fryer.php?query=allaccessions">All accessions.</a>';
+echo '<a href="reports.php?query=allaccessions">All accessions.</a>';
 echo '</li>';
 echo '<li>';
-echo '<a href="fryer.php?query=deaccessions">Deaccessions.</a>';
+echo '<a href="reports.php?query=deaccessions">Deaccessions.</a>';
 echo '</li>';
 echo '</ul>';

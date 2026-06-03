@@ -1,9 +1,6 @@
 <?php
 $type = $_GET["query"];
 
-# Database configuration
-# include 'dbcreds.php';
-
 function getenv_default($name, $default)
 {
     $value = getenv($name);
@@ -18,6 +15,7 @@ function getenv_default($name, $default)
 $user = getenv_default('ATOM_MYSQL_USERNAME', 'UNDEFINED');
 $pass = getenv_default('ATOM_MYSQL_PASSWORD', 'UNDEFINED');
 $dsn = getenv_default('ATOM_MYSQL_DSN', 'UNDEFINED');
+$db = getenv_default('ATOM_MYSQL_DB', 'UNDEFINED');
 
 $accessionSQL = '
 SELECT a.identifier, a.date, t.name AS processing_status, t2.name AS acquisition_type, a18.*,
@@ -59,7 +57,7 @@ switch($type) {
 $sql = str_replace('DBNAME', $db, $sql);
 
 #$connection = new PDO("mysql:dbname=$db;host=$host;port=$port", $user, $pass);
-$connect = new PDO($dsn, $user, $pass);
+$connection = new PDO($dsn, $user, $pass);
 $stmt = $connection->prepare($sql);
 $stmt->execute();
 $columns = [];

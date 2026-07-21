@@ -79,6 +79,8 @@ RUN \
   rsync -a /build/plugins/ /atom/src/plugins/ \
   && rm -rf /build
 
+RUN \
+  patch -d /atom/src -p 1 < /atom/src/patch/security_yml.patch
 
 COPY ./images/favicon.ico /atom/src/favicon.ico
 COPY ./images/logo.png /atom/src/images/

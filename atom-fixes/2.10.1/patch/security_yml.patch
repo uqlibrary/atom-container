@@ -1,0 +1,55 @@
+diff --git a/apps/qubit/config/security.yml b/apps/qubit/config/security.yml
+index afa0c77d0..90e2f7018 100644
+--- a/apps/qubit/config/security.yml
++++ b/apps/qubit/config/security.yml
+@@ -3,3 +3,7 @@
+ 
+ default:
+   is_secure: false
++
++autocomplete:
++  credentials: [[ editor, administrator ]]
++  is_secure: true
+diff --git a/apps/qubit/modules/actor/config/security.yml b/apps/qubit/modules/actor/config/security.yml
+new file mode 100644
+index 000000000..c99fff543
+--- /dev/null
++++ b/apps/qubit/modules/actor/config/security.yml
+@@ -0,0 +1,2 @@
++autocomplete:
++  is_secure: false
+diff --git a/apps/qubit/modules/search/config/security.yml b/apps/qubit/modules/search/config/security.yml
+index 43dc819f1..e7de0a36f 100644
+--- a/apps/qubit/modules/search/config/security.yml
++++ b/apps/qubit/modules/search/config/security.yml
+@@ -5,3 +5,6 @@ descriptionUpdates:
+ globalReplace:
+   credentials: administrator
+   is_secure: true
++
++autocomplete:
++  is_secure: false
+diff --git a/apps/qubit/modules/taxonomy/config/security.yml b/apps/qubit/modules/taxonomy/config/security.yml
+index eb32cc9ad..6224cfabc 100644
+--- a/apps/qubit/modules/taxonomy/config/security.yml
++++ b/apps/qubit/modules/taxonomy/config/security.yml
+@@ -8,7 +8,7 @@ index:
+   is_secure: false
+ 
+ autocomplete:
+-  is_secure: false
++  is_secure: true
+ 
+ all:
+   is_secure: true
+diff --git a/apps/qubit/modules/user/config/security.yml b/apps/qubit/modules/user/config/security.yml
+index dc480a8d0..90e9db5f7 100644
+--- a/apps/qubit/modules/user/config/security.yml
++++ b/apps/qubit/modules/user/config/security.yml
+@@ -47,3 +47,6 @@ editRepositoryAcl:
+ editTermAcl:
+   credentials: administrator
+   is_secure: true
++
++autocomplete:
++  credentials: administrator

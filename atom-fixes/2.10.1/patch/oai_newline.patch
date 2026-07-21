@@ -1,0 +1,30 @@
+diff -Naur atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_getRecord.xml.php modded-atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_getRecord.xml.php
+--- atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_getRecord.xml.php	2025-12-04 07:14:57.000000000 +1000
++++ modded-atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_getRecord.xml.php	2026-07-21 13:21:01.917008184 +1000
+@@ -10,9 +10,9 @@
+       </header>
+       <metadata>
+         <?php if ('oai_dc' == $metadataPrefix && !arOaiPluginComponent::checkDisplayCachedMetadata($record, $metadataPrefix)) { ?>
+-          <?php echo get_component('sfDcPlugin', 'dc', ['resource' => $record]); ?>
++          <?php echo trim(preg_replace('/\s\s+/', ' ', get_component('sfDcPlugin', 'dc', ['resource' => $record]))); ?>
+         <?php } else { ?>
+-          <?php arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix); ?>
++          <?php echo trim(preg_replace('/\s\s+/', ' ', arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix))); ?>
+         <?php } ?>
+       </metadata>
+       <?php if (count($record->digitalObjectsRelatedByobjectId)) { ?>
+diff -Naur atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_listRecords.xml.php modded-atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_listRecords.xml.php
+--- atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_listRecords.xml.php	2025-12-04 07:14:57.000000000 +1000
++++ modded-atom-2.10.1/plugins/arOaiPlugin/modules/arOaiPlugin/templates/_listRecords.xml.php	2026-07-21 13:22:19.800572337 +1000
+@@ -12,9 +12,9 @@
+         </header>
+         <metadata>
+           <?php if ('oai_dc' == $metadataPrefix && !arOaiPluginComponent::checkDisplayCachedMetadata($record, $metadataPrefix)) { ?>
+-            <?php echo get_component('sfDcPlugin', 'dc', ['resource' => $record]); ?>
++            <?php echo trim(preg_replace('/\s\s+/', ' ', get_component('sfDcPlugin', 'dc', ['resource' => $record]))); ?>
+           <?php } else { ?>
+-            <?php arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix); ?>
++            <?php echo trim(preg_replace('/\s\s+/', ' ', arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix))); ?>
+           <?php } ?>
+         </metadata>
+         <?php include '_about.xml.php'; ?>

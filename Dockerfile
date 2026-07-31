@@ -44,7 +44,7 @@ COPY ./dbdump.sh /atom/src/
 COPY ./db-restore.sh /atom/src/
 COPY ./set-ad-login.sh /atom/src/
 COPY ./atom-fixes/2.10.1/ /atom/src/
-
+COPY ./scripts /atom/scripts
 
 # Setup php
 RUN \

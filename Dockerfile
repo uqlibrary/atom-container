@@ -36,6 +36,12 @@ RUN \
 
 ADD --checksum=sha256:e135e69b2a743e00061dfee7bcc206af4fc6248cc180b2c894ae5291f4aee039 https://storage.accesstomemory.org/releases/atom-2.10.1.tar.gz /atom/
 RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.1.tar.gz -C /atom/src/ --strip 1
+RUN mkdir /downloads
+RUN mkdir /uploads
+RUN ln -s /atom/src/downloads /downloads
+RUN ln -s /atom/src/uploads /uploads
+#RUN mkdir -p /atom/src/downloads
+#RUN mkdir -p /atom/src/uploads
 #RUN mv /atom/atom-2.10.1 /atom/src
 
 COPY ./bootstrap.php /atom/src/

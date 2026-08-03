@@ -19,70 +19,79 @@
 
 class SettingsADAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'ldapHost',
-      'ldapBaseDn');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'ldapHost',
+        'ldapPort',
+        'ldapBaseDn',
+        'ldapBindAttribute',
+    ];
 
-  protected function earlyExecute()
-  {
-
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'ldapHost':
-      case 'ldapBaseDn':
-      // Determine and set field default value
-      if (null !== $this->{$name} = QubitSetting::getByName($name))
-      {
-        $default = $this->{$name}->getValue(array('sourceCulture' => true));
-      }
-      else
-      {
-        $default = (isset($defaults[$name])) ? $defaults[$name] : '';
-      }
-      $this->form->setDefault($name, $default);
-      // Set validator and widget
-      $this->form->setWidget($name, new sfWidgetFormInput);
-      break;
-    }
-  }
+        parent::execute($request);
 
-  protected function processField($field)
-  {
-    switch ($name = $field->getName())
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->processForm();
+
+                QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+                $this->redirect(['module' => 'settings', 'action' => 'ad']);
+            }
+        }
+    }
+
+    protected function addField($name)
     {
-      case 'ldapHost':
-      case 'ldapBaseDn':
-      if (null === $this->{$name})
-      {
-        $this->{$name} = new QubitSetting;
-        $this->{$name}->name = $name;
-        $this->{$name}->scope = 'ad';
-      }
-      $this->{$name}->setValue($field->getValue(), array('sourceCulture' => true));
-      $this->{$name}->save();
-      break;
+        switch ($name) {
+            case 'ldapHost':
+            case 'ldapPort':
+            case 'ldapBaseDn':
+            case 'ldapBindAttribute':
+                // Determine and set field default value
+                if (null !== $this->{$name} = QubitSetting::getByName($name)) {
+                    $default = $this->{$name}->getValue(['sourceCulture' => true]);
+                } else {
+                    $defaults = [
+                        'ldapHost' => 'ad.cc.uq.edu.au',
+                        'ldapPort' => '389',
+                        'ldapBaseDN' => 'DC=uq,DC=edu,DC=au',
+                        'ldapBindAttribute' => 'sAMAccountName',
+                    ];
+
+                    $default = (isset($defaults[$name])) ? $defaults[$name] : '';
+                }
+
+                $this->form->setDefault($name, $default);
+
+                // Set validator and widget
+                $validator = ('ldapPort' == $name) ? new sfValidatorInteger(['min' => 1, 'max' => 65535]) : new sfValidatorPass();
+                $this->form->setValidator($name, $validator);
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+        }
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
+    protected function processField($field)
     {
-      $this->form->bind($request->getPostParameters());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-        QubitCache::getInstance()->removePattern('settings:i18n:*');
-        $this->redirect(array('module' => 'settings', 'action' => 'ad'));
-      }
+        switch ($name = $field->getName()) {
+            case 'ldapHost':
+            case 'ldapPort':
+            case 'ldapBaseDn':
+            case 'ldapBindAttribute':
+                if (null === $this->{$name}) {
+                    $this->{$name} = new QubitSetting();
+                    $this->{$name}->name = $name;
+                    $this->{$name}->scope = 'ad';
+                }
+                $this->{$name}->setValue($field->getValue(), ['sourceCulture' => true]);
+                $this->{$name}->save();
+
+                break;
+        }
     }
-  }
 }

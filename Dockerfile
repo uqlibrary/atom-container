@@ -40,7 +40,7 @@ RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.1.tar.gz -C /atom/src/ --stri
 #RUN mkdir /uploads
 #RUN ln -s /downloads /atom/src/downloads
 #RUN ln -s /uploads /atom/src/uploads 
-RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom/src/cache
+RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom/src/cache && mkdir -p /atom/src/log
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/

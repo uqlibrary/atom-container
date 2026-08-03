@@ -34,6 +34,7 @@ case $1 in
     'worker')
         # Give some extra time to MySQL and Gearman to start
         # and add some interval in between restarts.
+        echo "Waiting a bit for the DB to warm up..."
         sleep 10
         exec php ${__dir}/symfony jobs:worker
         ;;

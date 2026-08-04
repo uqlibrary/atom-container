@@ -15,3 +15,7 @@ patch -d /atom/src/apps/qubit/templates/ -p 1 < /atom/src/patch/footer.patch
 # Fix menu to include AD config
 echo "Fixing LDAP menu item"
 /atom/src/patch/fix_ldap_menu.sh
+
+# Fix default configs
+echo "Fixing default configs"
+/atom/src/patch/default_configs.sh

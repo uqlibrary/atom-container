@@ -38,8 +38,8 @@ sed -i "s/navbar-dark/navbar-dark bg-warning/g" $STAG_THEME/templates/_header.ph
 mv $PROD_THEME/config/arDominionB5PluginConfiguration.class.php $PROD_THEME/config/uqDominionProdB5PluginConfiguration.class.php
 mv $STAG_THEME/config/arDominionB5PluginConfiguration.class.php $STAG_THEME/config/uqDominionStagingB5PluginConfiguration.class.php
 
-find $PROD_THEME/ -name \*.php -exec sed -i 'arDominion/uqDominionProd/g' {} \;
-find $STAG_THEME/ -name \*.php -exec sed -i 'arDominion/uqDominionStaging/g' {} \;
+find $PROD_THEME/ -name '*.php' -exec sed -i 's/arDominion/uqDominionProd/g' {} +
+find $STAG_THEME/ -name '*.php' -exec sed -i 's/arDominion/uqDominionStaging/g' {} +
 
 export PATH="/usr/local/bin:$PATH"
 cd /build

@@ -36,7 +36,7 @@ RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
-ADD ./atom-fixes/2.10.1/ /atom/src/
+COPY ./atom-fixes/2.10.1/ /atom/src/
 COPY ./scripts /atom/scripts
 
 # Setup php

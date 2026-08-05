@@ -34,6 +34,13 @@ sed -i "s/navbar-dark/navbar-dark bg-uq/g" $PROD_THEME/templates/_header.php
 # Replace navbar bg for staging
 sed -i "s/navbar-dark/navbar-dark bg-warning/g" $STAG_THEME/templates/_header.php 
 
+# Fix theme names
+mv $PROD_THEME/config/arDominionB5PluginConfiguration.class.php $PROD_THEME/config/uqDominionProdB5PluginConfiguration.class.php
+mv $STAG_THEME/config/arDominionB5PluginConfiguration.class.php $STAG_THEME/config/uqDominionStagingB5PluginConfiguration.class.php
+
+find $PROD_THEME/ -name \*.php -exec sed -i 'arDominion/uqDominionProd/g' {} \;
+find $STAG_THEME/ -name \*.php -exec sed -i 'arDominion/uqDominionStaging/g' {} \;
+
 export PATH="/usr/local/bin:$PATH"
 cd /build
 npm install

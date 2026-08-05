@@ -51,7 +51,6 @@ RUN /atom/src/patch/apply.sh
 COPY ./images/favicon.ico /atom/src/favicon.ico
 COPY ./images/logo.png /atom/src/images/
 COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
-COPY ./images/logo.png /atom/src/plugins/uqDominionProdB5Plugin/images/
 
 COPY ./reports/ /atom/src/uq/reports
 

@@ -20,31 +20,23 @@ RUN \
   php-apcu \
   php-memcache \
   php8.3-fpm \
-  composer \
   fop \
   imagemagick \
   ghostscript \
   poppler-utils \
   ffmpeg \
-  npm \
-  make \
   rsync \
-  git \
   curl \
   wget \
   mysql-client
 
 ADD --checksum=sha256:e135e69b2a743e00061dfee7bcc206af4fc6248cc180b2c894ae5291f4aee039 https://storage.accesstomemory.org/releases/atom-2.10.1.tar.gz /atom/
 RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.1.tar.gz -C /atom/src/ --strip 1
-#RUN mkdir /downloads
-#RUN mkdir /uploads
-#RUN ln -s /downloads /atom/src/downloads
-#RUN ln -s /uploads /atom/src/uploads 
 RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom/src/cache && mkdir -p /atom/src/log
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
-COPY ./atom-fixes/2.10.1/ /atom/src/
+ADD ./atom-fixes/2.10.1/ /atom/src/
 COPY ./scripts /atom/scripts
 
 # Setup php
@@ -54,34 +46,7 @@ RUN \
   mkdir -p /usr/local/etc/php-fpm.d && \
   rm /etc/php/8.3/fpm/pool.d/www.conf
 
-# Add plugins
-RUN \
-  git clone --depth 1 --branch stable/2.10.x https://github.com/artefactual/atom.git /build/
-
-COPY ./plugindev/ /plugindev
-
-RUN \
-  ln -s /atom/src/dist /build/dist
-
-# Run
-RUN set -xe \
-    && rsync -a /plugindev/plugins/ /build/plugins \
-    && npm install -g "less@<4.0.0" n \
-    && n stable
-
-RUN set -xe \
-  && export PATH="/usr/local/bin:$PATH" \
-  && cd /build \
-  && npm install \
-  && npm run build \
-  && cd /atom/src/
-
-RUN \
-  rsync -a /build/plugins/ /atom/src/plugins/ \
-  && rm -rf /build
-
-RUN \
-  /atom/src/patch/apply.sh
+RUN /atom/src/patch/apply.sh
 
 COPY ./images/favicon.ico /atom/src/favicon.ico
 COPY ./images/logo.png /atom/src/images/

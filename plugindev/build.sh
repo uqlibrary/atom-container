@@ -9,7 +9,7 @@ mkdir -p /atom/src
 cd /atom/src/
 git init .
 git remote add origin https://github.com/artefactual/atom.git
-git pull origin stable/2.8.x 
+git pull origin stable/2.10.x 
 
 # Get plugins in place
 PLUGINS=$(ls /plugindev/plugins)

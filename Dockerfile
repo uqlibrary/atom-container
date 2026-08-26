@@ -30,13 +30,13 @@ RUN \
   wget \
   mysql-client
 
-ADD --checksum=sha256:e135e69b2a743e00061dfee7bcc206af4fc6248cc180b2c894ae5291f4aee039 https://storage.accesstomemory.org/releases/atom-2.10.1.tar.gz /atom/
-RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.1.tar.gz -C /atom/src/ --strip 1
+ADD --checksum=sha256:2495e433911740b9e86c4c209ea3cca9cd91e86d2b166d4952e9471653c87c39 https://storage.accesstomemory.org/releases/atom-2.10.2.tar.gz /atom/
+RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.2.tar.gz -C /atom/src/ --strip 1
 RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom/src/cache && mkdir -p /atom/src/log
 
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
-COPY ./atom-fixes/2.10.1/ /atom/src/
+COPY ./atom-fixes/2.10.2/ /atom/src/
 COPY ./scripts /atom/scripts
 
 # Setup php

@@ -86,12 +86,10 @@ $CONFIG = [
 // /apps/qubit/config/settings.yml
 //
 
-if (!file_exists(_ATOM_DIR . "/apps/qubit/config/settings.yml")) {
-    copy(
-        _ATOM_DIR . "/apps/qubit/config/settings.yml.tmpl",
-        _ATOM_DIR . "/apps/qubit/config/settings.yml",
-    );
-}
+copy(
+    _ATOM_DIR . "/apps/qubit/config/settings.yml.tmpl",
+    _ATOM_DIR . "/apps/qubit/config/settings.yml",
+);
 
 //
 // /config/propel.ini
@@ -117,92 +115,89 @@ file_put_contents(_ATOM_DIR . "/apps/qubit/config/gearman.yml", $gearman_yml);
 // /apps/qubit/config/app.yml
 //
 
-if (!file_exists(_ATOM_DIR . "/apps/qubit/config/app.yml")) {
-    $parts = get_host_and_port(
-        $CONFIG["atom.memcached_host"],
-        $CONFIG["atom.memcached_port"],
-    );
-    $app_yml = <<<EOT
-    all:
-      uq_reusable_components: ${CONFIG["atom.uq_reusable_components"]}
-      upload_limit: -1
-      download_timeout: 300
-      cache_engine: sfMemcacheCache
-      cache_engine_param:
-        host: ${parts["host"]}
-        port: ${parts["port"]}
-        prefix: atom
-        storeCacheInfo: true
-        persistent: true
-      read_only: false
-      htmlpurifier_enabled: false
-      csp:
-          response_header: Content-Security-Policy-Report-Only
-          directives: >
-            default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://fonts.gstatic.com https://fonts.googleapis.com;
-            script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://*.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
-            img-src 'self' data: https://static.uq.net.au https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
-            connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:;
-            worker-src 'self' blob:;
-            frame-ancestors 'self';
-            form-action 'self';
+$parts = get_host_and_port(
+    $CONFIG["atom.memcached_host"],
+    $CONFIG["atom.memcached_port"],
+);
+$app_yml = <<<EOT
+all:
+    uq_reusable_components: ${CONFIG["atom.uq_reusable_components"]}
+    upload_limit: -1
+    download_timeout: 300
+    cache_engine: sfMemcacheCache
+    cache_engine_param:
+    host: ${parts["host"]}
+    port: ${parts["port"]}
+    prefix: atom
+    storeCacheInfo: true
+    persistent: true
+    read_only: false
+    htmlpurifier_enabled: false
+    csp:
+        response_header: Content-Security-Policy-Report-Only
+        directives: >
+        default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://fonts.gstatic.com https://fonts.googleapis.com;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://*.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+        img-src 'self' data: https://static.uq.net.au https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
+        connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:;
+        worker-src 'self' blob:;
+        frame-ancestors 'self';
+        form-action 'self';
 
-    EOT;
+EOT;
 
-    file_put_contents(_ATOM_DIR . "/apps/qubit/config/app.yml", $app_yml);
-}
+file_put_contents(_ATOM_DIR . "/apps/qubit/config/app.yml", $app_yml);
+
 
 //
 // /apps/qubit/config/factories.yml
 //
 
-if (!file_exists(_ATOM_DIR . "/apps/qubit/config/factories.yml")) {
-    $parts = get_host_and_port(
-        $CONFIG["atom.memcached_host"],
-        $CONFIG["atom.memcached_port"],
-    );
-    $factories_yml = <<<EOT
-    prod:
-      storage:
-        class: QubitCacheSessionStorage
+$parts = get_host_and_port(
+    $CONFIG["atom.memcached_host"],
+    $CONFIG["atom.memcached_port"],
+);
+$factories_yml = <<<EOT
+prod:
+    storage:
+    class: QubitCacheSessionStorage
+    param:
+        session_name: symfony
+        session_cookie_httponly: true
+        session_cookie_secure: true
+        cache:
+        class: sfMemcacheCache
         param:
-          session_name: symfony
-          session_cookie_httponly: true
-          session_cookie_secure: true
-          cache:
-            class: sfMemcacheCache
-            param:
-              host: ${parts["host"]}
-              port: ${parts["port"]}
-              prefix: atom
-              storeCacheInfo: true
-              persistent: true
+            host: ${parts["host"]}
+            port: ${parts["port"]}
+            prefix: atom
+            storeCacheInfo: true
+            persistent: true
 
 
-    dev:
-      storage:
-        class: QubitCacheSessionStorage
+dev:
+    storage:
+    class: QubitCacheSessionStorage
+    param:
+        session_name: symfony
+        session_cookie_httponly: true
+        session_cookie_secure: true
+        cache:
+        class: sfMemcacheCache
         param:
-          session_name: symfony
-          session_cookie_httponly: true
-          session_cookie_secure: true
-          cache:
-            class: sfMemcacheCache
-            param:
-              host: ${parts["host"]}
-              port: ${parts["port"]}
-              prefix: atom
-              storeCacheInfo: true
-              persistent: true
+            host: ${parts["host"]}
+            port: ${parts["port"]}
+            prefix: atom
+            storeCacheInfo: true
+            persistent: true
 
 
-    EOT;
+EOT;
 
-    file_put_contents(
-        _ATOM_DIR . "/apps/qubit/config/factories.yml",
-        $factories_yml,
-    );
-}
+file_put_contents(
+    _ATOM_DIR . "/apps/qubit/config/factories.yml",
+    $factories_yml,
+);
 
 //
 // /config/search.yml

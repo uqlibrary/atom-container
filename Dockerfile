@@ -1,6 +1,10 @@
 #syntax=docker/dockerfile:1
 FROM ubuntu:24.04
 
+# Prep sigfried repo
+#RUN curl -sL "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x20F802FE798E6857" | gpg --dearmor | tee /usr/share/keyrings/siegfried-archive-keyring.gpg
+#RUN echo "deb [signed-by=/usr/share/keyrings/siegfried-archive-keyring.gpg] https://www.itforarchivists.com/ buster main" | tee -a /etc/apt/sources.list.d/siegfried.list
+
 RUN \
   apt-get update && \
   apt-get -y upgrade && \
@@ -28,16 +32,23 @@ RUN \
   rsync \
   curl \
   wget \
-  mysql-client
+  mysql-client \
+  patch
+#  siegfried
 
+# Fetch atom source
 ADD --checksum=sha256:2495e433911740b9e86c4c209ea3cca9cd91e86d2b166d4952e9471653c87c39 https://storage.accesstomemory.org/releases/atom-2.10.2.tar.gz /atom/
 RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.2.tar.gz -C /atom/src/ --strip 1
 RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom/src/cache && mkdir -p /atom/src/log
 
+# Add custom files
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
 COPY ./atom-fixes/2.10.2/ /atom/src/
 COPY ./scripts /atom/scripts
+COPY ./images/favicon.ico /atom/src/favicon.ico
+COPY ./images/logo.png /atom/src/images/
+COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
 
 # Setup php
 RUN \
@@ -46,11 +57,8 @@ RUN \
   mkdir -p /usr/local/etc/php-fpm.d && \
   rm /etc/php/8.3/fpm/pool.d/www.conf
 
+# Apply our patches
 RUN /atom/src/patch/apply.sh
-
-COPY ./images/favicon.ico /atom/src/favicon.ico
-COPY ./images/logo.png /atom/src/images/
-COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
 
 COPY ./reports/ /atom/src/uq/reports
 

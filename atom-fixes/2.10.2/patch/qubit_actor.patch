@@ -1,0 +1,22 @@
+--- /home/rferris/atom-versions/atom-2.10.2/lib/model/QubitActor.php	2026-08-25 06:01:40.000000000 +1000
++++ reference_files/lib/model/QubitActor.php	2026-09-25 04:53:45.780626279 +1000
+@@ -122,6 +122,19 @@
+             $this->parentId = QubitRepository::ROOT_ID;
+         }
+ 
++        // Added by rferris to allow changing authority record slugs 
++        $newQubitSlug = QubitSlug::getByObjectId($this->id);
++
++        if (isset($newQubitSlug)) {
++            $slug = QubitSlug::slugify($this->__get('authorizedFormOfName', array('sourceCulture' => true)));
++            if ((! empty($slug)) && ($slug !== $this->slug)) {
++                $this->slug = $slug;
++                $newQubitSlug->slug = $slug;
++                $newQubitSlug->save();
++            }
++        }
++        // End rferris patch
++
+         // Save new digital objects
+         // TODO Allow adding additional digital objects as derivatives
+         foreach ($this->digitalObjectsRelatedByobjectId as $item) {

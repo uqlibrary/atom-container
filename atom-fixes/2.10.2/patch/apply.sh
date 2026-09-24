@@ -9,6 +9,10 @@ patch -d /atom/src -p 1 < /atom/src/patch/oai_newline.patch
 echo "Applying footer.patch"
 patch -d /atom/src/apps/qubit/templates/ -p 1 < /atom/src/patch/footer.patch
 
+# Fix card view to show cultural advice
+echo "Applying card_view.patch"
+patch /atom/src/apps/qubit/modules/informationobject/templates/_cardViewResults.php < /atom/src/patch/card_view.patch
+
 # Fix menu to include AD config
 echo "Fixing LDAP menu item"
 /atom/src/patch/fix_ldap_menu.sh

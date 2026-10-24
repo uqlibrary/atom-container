@@ -33,7 +33,8 @@ RUN \
   curl \
   wget \
   mysql-client \
-  patch
+  patch \
+  nano
 #  siegfried
 
 # Fetch atom source

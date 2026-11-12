@@ -1,7 +1,7 @@
 <?php
 
 define('_ATOM_DIR', '/atom/src');
-define('_ETC_DIR', '/usr/local/etc');
+define('_ETC_DIR', '/etc/php/8.3/fpm');
 
 function getenv_default($name, $default)
 {
@@ -309,8 +309,8 @@ pcov.enabled = 1
 EOT;
 }
 
-@unlink(_ETC_DIR.'/php/php.ini');
-file_put_contents(_ETC_DIR.'/php/php.ini', $php_ini);
+@unlink(_ETC_DIR.'/php.ini');
+file_put_contents(_ETC_DIR.'/php.ini', $php_ini);
 
 //
 // fpm ini
@@ -362,8 +362,8 @@ env[ATOM_DEBUG_IP] = {$debugIps}
 EOT;
 }
 
-@unlink(_ETC_DIR.'/php-fpm.d/atom.conf');
-file_put_contents(_ETC_DIR.'/php-fpm.d/atom.conf', $fpm_ini);
+@unlink(_ETC_DIR.'/pool.d/atom.conf');
+file_put_contents(_ETC_DIR.'/pool.d/atom.conf', $fpm_ini);
 
 //
 // sf symlink

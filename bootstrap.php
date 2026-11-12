@@ -51,6 +51,7 @@ $CONFIG = [
     'atom.mysql_username' => getenv_or_fail('ATOM_MYSQL_USERNAME'),
     'atom.mysql_password' => getenv_or_fail('ATOM_MYSQL_PASSWORD'),
     'atom.debug_ip' => getenv_default('ATOM_DEBUG_IP', ''),
+    'atom.read_only_mode' => filter_var(getenv_default('ATOM_READ_ONLY_MODE', 'false'), FILTER_VALIDATE_BOOLEAN),
     'atom.uq_reusable_components' => getenv_default('UQ_REUSABLE_COMPONENTS', ''),
     'fpm.listen_port' => getenv_default('ATOM_FPM_LISTEN_PORT', '9000'),
     'php.max_execution_time' => getenv_default('ATOM_PHP_MAX_EXECUTION_TIME', '120'),
@@ -106,7 +107,7 @@ if (!file_exists(_ATOM_DIR.'/apps/qubit/config/app.yml')) {
     $parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG["atom.memcached_port"]);
     $app_yml = <<<EOT
 all:
-  uq_reusable_components: {$CONFIG["atom.uq_reusable_components"]}
+  uq_reusable_components: {$CONFIG['atom.uq_reusable_components']}
   upload_limit: -1
   download_timeout: 300
   cache_engine: sfMemcacheCache
@@ -116,7 +117,7 @@ all:
     prefix: atom
     storeCacheInfo: true
     persistent: true
-  read_only: false
+  read_only: {$CONFIG['atom.read_only_mode']}
   htmlpurifier_enabled: false
   csp:
     response_header: Content-Security-Policy

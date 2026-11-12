@@ -52,11 +52,11 @@ COPY ./images/logo.png /atom/src/images/
 COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
 
 # Setup php
-#RUN \
-#  ln -s /usr/sbin/php-fpm8.3 /usr/bin/php-fpm && \
-#  mkdir -p /usr/local/etc/php && \
-#  mkdir -p /usr/local/etc/php-fpm.d && \
-#  rm /etc/php/8.3/fpm/pool.d/www.conf
+RUN \
+  ln -s /usr/sbin/php-fpm8.3 /usr/bin/php-fpm && \
+  mkdir -p /usr/local/etc/php && \
+  mkdir -p /usr/local/etc/php-fpm.d && \
+  rm /etc/php/8.3/fpm/pool.d/www.conf
 
 # Apply our patches
 #RUN /atom/src/patch/apply.sh

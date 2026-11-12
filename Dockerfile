@@ -38,28 +38,28 @@ RUN \
 #  siegfried
 
 # Fetch atom source
-ADD --checksum=sha256:2495e433911740b9e86c4c209ea3cca9cd91e86d2b166d4952e9471653c87c39 https://storage.accesstomemory.org/releases/atom-2.10.2.tar.gz /atom/
-RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.2.tar.gz -C /atom/src/ --strip 1
+ADD --checksum=sha256:9a21db3b2f1f8a944e3c07cc672e36ab48bbebb78e8cf63be08567d5b9074b87 https://github.com/uqlibrary/atom/releases/download/2.10.3-20261112-80199b031c1cce8f/atom-2.10.3-20261112-80199b031c1cce8f.tar.gz /atom/
+RUN mkdir -p /atom/src && tar -xvf /atom/atom-2.10.3-20261112-80199b031c1cce8f.tar.gz -C /atom/src/ --strip 1
 RUN mkdir -p /atom/src/downloads && mkdir -p /atom/src/uploads && mkdir -p /atom/src/cache && mkdir -p /atom/src/log
 
 # Add custom files
 COPY ./bootstrap.php /atom/src/
 COPY ./entrypoint.sh /atom/src/
-COPY ./atom-fixes/2.10.2/ /atom/src/
+#COPY ./atom-fixes/2.10.2/ /atom/src/
 COPY ./scripts /atom/scripts
 COPY ./images/favicon.ico /atom/src/favicon.ico
 COPY ./images/logo.png /atom/src/images/
 COPY ./images/logo.png /atom/src/plugins/arDominionB5Plugin/images/
 
 # Setup php
-RUN \
-  ln -s /usr/sbin/php-fpm8.3 /usr/bin/php-fpm && \
-  mkdir -p /usr/local/etc/php && \
-  mkdir -p /usr/local/etc/php-fpm.d && \
-  rm /etc/php/8.3/fpm/pool.d/www.conf
+#RUN \
+#  ln -s /usr/sbin/php-fpm8.3 /usr/bin/php-fpm && \
+#  mkdir -p /usr/local/etc/php && \
+#  mkdir -p /usr/local/etc/php-fpm.d && \
+#  rm /etc/php/8.3/fpm/pool.d/www.conf
 
 # Apply our patches
-RUN /atom/src/patch/apply.sh
+#RUN /atom/src/patch/apply.sh
 
 COPY ./reports/ /atom/src/uq/reports
 

@@ -9,7 +9,7 @@ CLIENT_CONF=/root/.mysql/mysql.cnf
 
 # Create credentials file
 mkdir -m 700 -p /root/.mysql
-echo '[mysqldump]' > $CLIENT_CONF
+echo '[client]' > $CLIENT_CONF
 echo "user=${ATOM_MYSQL_USERNAME}" >> $CLIENT_CONF
 echo "password=${ATOM_MYSQL_PASSWORD}" >> $CLIENT_CONF
 

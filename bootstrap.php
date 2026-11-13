@@ -100,12 +100,12 @@ EOT;
 file_put_contents(_ATOM_DIR.'/apps/qubit/config/gearman.yml', $gearman_yml);
 
 //
+//
 // /apps/qubit/config/app.yml
 //
 
-if (!file_exists(_ATOM_DIR.'/apps/qubit/config/app.yml')) {
-    $parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG["atom.memcached_port"]);
-    $app_yml = <<<EOT
+$parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG["atom.memcached_port"]);
+$app_yml = <<<EOT
 all:
   uq_reusable_components: {$CONFIG['atom.uq_reusable_components']}
   upload_limit: -1
@@ -120,7 +120,7 @@ all:
   read_only: {$CONFIG['atom.read_only_mode']}
   htmlpurifier_enabled: false
   csp:
-    response_header: Content-Security-Policy
+    response_header: Content-Security-Policy-Report-Only
     directives: >
       default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://fonts.gstatic.com https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;
@@ -134,16 +134,15 @@ all:
 
 EOT;
 
-    file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
-}
+@unlink(_ATOM_DIR.'/apps/qubit/config/app.yml');
+file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
 
 //
 // /apps/qubit/config/factories.yml
 //
 
-if (!file_exists(_ATOM_DIR.'/apps/qubit/config/factories.yml')) {
-    $parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG['atom.memcached_port']);
-    $factories_yml = <<<EOT
+$parts = get_host_and_port($CONFIG['atom.memcached_host'], $CONFIG['atom.memcached_port']);
+$factories_yml = <<<EOT
 prod:
   storage:
     class: QubitCacheSessionStorage
@@ -178,8 +177,8 @@ dev:
 
 EOT;
 
-    file_put_contents(_ATOM_DIR.'/apps/qubit/config/factories.yml', $factories_yml);
-}
+@unlink(_ATOM_DIR.'/apps/qubit/config/factories.yml');
+file_put_contents(_ATOM_DIR.'/apps/qubit/config/factories.yml', $factories_yml);
 
 //
 // /config/search.yml

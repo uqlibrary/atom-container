@@ -131,6 +131,8 @@ all:
       style-src 'self' 'unsafe-inline' https://assets.library.uq.edu.au *.awswaf.com https://fonts.googleapis.com; 
       worker-src 'self' blob:; 
       connect-src 'self' https://*.library.uq.edu.au *.awswaf.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:;
+      media-src blob: *.library.uq.edu.au; 
+      frame-src 'self' blob: mediastream: *.library.uq.edu.au *.googleapis.com *.googletagmanager.com; 
 EOT;
 
 @unlink(_ATOM_DIR.'/apps/qubit/config/app.yml');

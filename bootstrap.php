@@ -120,7 +120,7 @@ all:
   read_only: {$CONFIG['atom.read_only_mode']}
   htmlpurifier_enabled: false
   csp:
-    response_header: Content-Security-Policy-Report-Only
+    response_header: Content-Security-Policy
     directives: >
       default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://fonts.gstatic.com https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;

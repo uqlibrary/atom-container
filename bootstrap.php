@@ -122,16 +122,15 @@ all:
   csp:
     response_header: Content-Security-Policy
     directives: >
-      default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://fonts.gstatic.com https://fonts.googleapis.com;
-      font-src 'self' https://fonts.gstatic.com;
-      form-action 'self';
-      img-src 'self' data: https://static.uq.net.au https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ https://*.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
-      style-src 'self' 'nonce' https://fonts.googleapis.com;
-      worker-src 'self' blob:;
-      connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
-      frame-ancestors 'self';
-
+      frame-ancestors 'self' https://*.library.uq.edu.au; 
+      default-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ *.awswaf.com https://fonts.gstatic.com https://fonts.googleapis.com; 
+      font-src 'self' https://assets.library.uq.edu.au *.awswaf.com https://fonts.gstatic.com; 
+      form-action 'self'; 
+      img-src 'self' data: https://assets.library.uq.edu.au *.awswaf.com https://static.uq.net.au https://web.library.uq.edu.au https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:; 
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.library.uq.edu.au/ *.awswaf.com https://*.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:; 
+      style-src 'self' 'unsafe-inline' https://assets.library.uq.edu.au *.awswaf.com https://fonts.googleapis.com; 
+      worker-src 'self' blob:; 
+      connect-src 'self' https://*.library.uq.edu.au *.awswaf.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:;
 EOT;
 
 @unlink(_ATOM_DIR.'/apps/qubit/config/app.yml');
